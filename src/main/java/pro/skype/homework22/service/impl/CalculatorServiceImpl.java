@@ -1,5 +1,5 @@
 package pro.skype.homework22.service.impl;
-
+import pro.skype.homework22.service.exception.IllegalArgumentException;
 import org.springframework.stereotype.Service;
 import pro.skype.homework22.service.CalculatorService;
 
@@ -22,17 +22,16 @@ public class CalculatorServiceImpl implements CalculatorService {
     }
 
     @Override
-    public Integer divideTwoDigits(Integer firstDigit, Integer secondDigit) { return firstDigit / secondDigit;}
-
-    public Integer testDivideTwoDigits(Integer firstDigit, Integer secondDigit) throws IllegalArgumentException {
-        if (!secondDigit.equals(0)) {
-            return divideTwoDigits(firstDigit, secondDigit);
-        }
+    public Integer divideTwoDigits(Integer firstDigit, Integer secondDigit) throws IllegalArgumentException {
+        if (secondDigit == 0) {
             throw new IllegalArgumentException("Неверный формат аргумента числа 2. На ноль делить нельзя");
+        }
+            return firstDigit / secondDigit;
     }
-    public Integer catchException(Integer firstDigit, Integer secondDigit) {
+   @Override
+   public Integer catchException(Integer firstDigit, Integer secondDigit) {
         try {
-            return testDivideTwoDigits(firstDigit, secondDigit);
+            return divideTwoDigits(firstDigit, secondDigit);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

@@ -13,7 +13,10 @@ public class CalculatorController {
     public CalculatorController(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
     }
-
+    @GetMapping("/")
+    public String welcome () {
+        return "Добро пожаловать в калькулятор!";
+    }
     @GetMapping("/plus")
     public String plusTwoDigits(@RequestParam(value = "num1", required = false) Integer firstDigit,
                                 @RequestParam(value = "num2", required = false) Integer secondDigit) {
@@ -43,7 +46,7 @@ public class CalculatorController {
 
     @GetMapping("/divide")
     public String divideTwoDigits(@RequestParam(value = "num1", required = false) Integer firstDigit,
-                                  @RequestParam(value = "num2", required = false) Integer secondDigit){
+                                  @RequestParam(value = "num2", required = false) Integer secondDigit) throws IllegalArgumentException {
         if (firstDigit == null || secondDigit == null) {
             return "Неверные данные! Пожалуйста, укажите правильные аргументы числа 1 и числа 2";
         }
